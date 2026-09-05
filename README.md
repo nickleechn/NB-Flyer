@@ -1,9 +1,9 @@
-# MB Flyer
+# NB Flyer
 
-Reusable guidance for MB Flyer travel and transport videos.
+Reusable guidance for NB Flyer travel and transport videos.
 
 - [Video editing workflow](nb-fly-video-edit.md) — footage review, stabilisation, narration-led cuts, audio, subtitles and 4K delivery. Originally moved from `nickleechn/design-skills`; updated with editing preferences.
-- [Script-writing skill](mb-flyer-script-writing/SKILL.md) — footage-based, conversational narration, fact-checking, revisions and voiceover handoff.
+- [Script-writing skill](nb-flyer-script-writing/SKILL.md) — footage-based, conversational narration, fact-checking, revisions and voiceover handoff.
 
 - [Thumbnail generation guide](nb-fly-thumbnail.md) — composition, headlines, colours and a reusable generation prompt.
 

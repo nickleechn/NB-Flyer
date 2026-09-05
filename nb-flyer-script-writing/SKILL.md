@@ -1,9 +1,9 @@
 ---
-name: mb-flyer-script-writing
-description: Write and revise conversational YouTube travel and transport review scripts for MB Flyer from footage and the creator's notes, with fact-checking and a clean narration handoff.
+name: nb-flyer-script-writing
+description: Write and revise conversational YouTube travel and transport review scripts for NB Flyer from footage and the creator's notes, with fact-checking and a clean narration handoff.
 ---
 
-# MB Flyer Script Writing
+# NB Flyer Script Writing
 
 Write as the presenter talking to a friend about a trip they actually took. Ground the story in the footage and the creator's account. The user's current instructions override the defaults below.
 
