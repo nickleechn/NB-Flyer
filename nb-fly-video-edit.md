@@ -166,18 +166,22 @@ shapes rather than typing `→`.
 
 ### 7. Audio
 
-VO normalised to −16 LUFS, music ducked underneath by sidechain:
+Keep the music at a steady background level through narration. Do not use
+sidechain compression, speech-triggered ducking, or volume dips whenever
+the presenter speaks. Choose the music gain once for the mix, so the voice
+remains clear while the music stays audible and consistent. Check a spoken
+passage and a pause at the same playback volume.
 
-```bash
-[mus][vo_copy]sidechaincompress=threshold=0.03:ratio=8:attack=15:release=500[ducked];
-[vo][ducked]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95
-```
+Normalise the voice-over as needed, set the music's fixed gain by listening,
+then mix with `amix=inputs=2:duration=first:normalize=0`. With `normalize=0`,
+the mixer does not automatically reduce the input levels. Measure the final
+combined mix and target −16 LUFS integrated with true peak no higher than
+−1 dBTP. Correct the overall mix gain or limiting as needed without adding
+speech-triggered music changes.
 
-`amix` halves levels unless you pass `normalize=0`. Target −16 LUFS
-integrated and about −1 dBFS true peak.
-
-Loop a short music bed with `acrossfade` between copies rather than butting
-them together.
+Opening and closing fades are fine. Loop a short music bed with `acrossfade`
+between copies rather than butting them together. These transitions should
+follow the edit or track boundaries, not voice activity.
 
 ### 8. Assemble frame-exactly
 
