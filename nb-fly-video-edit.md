@@ -7,8 +7,11 @@ recorded voice-over to a finished 4K upload with subtitles and metadata.
 
 These are defaults. Do not ask about them each time.
 
-- **Always stabilise.** The cameras are cheap and most handheld shots need it.
-  Stabilisation is on by default, not something to enable selectively.
+- **Match stabilisation to the shot.** Use the standard stabilisation pass
+  for ordinary handheld shake. For passing scenery, deliberate pans, walking
+  shots or other large movements, start with a gentler motion-preserving
+  treatment and compare it with the original. Bypass correction when it
+  introduces more distracting movement than it removes.
 - **Shoot 60 fps, deliver 30 fps.** Source is 59.94p; every export is 30p.
 - **Aim for 4K.** Deliver 3840 × 2160. Never downscale to 1080p unless asked.
 - **Use 50% speed to fill a gap.** If a shot is too shaky to use at speed, or a
@@ -80,9 +83,33 @@ then re-transcribe the joins to confirm they still read naturally.
 Keep a map from original VO time to new timeline time and apply it to
 everything downstream — cut list, chapter markers, subtitles.
 
-### 5. Render each cut, stabilised
+### 5. Choose stabilisation per shot, then render
 
-Two-pass vidstab per cut, at native 4K:
+Classify each cut before rendering and record its mode and settings in the
+EDL. Do not apply the same correction strength to every shot.
+
+| Shot | Starting approach | What must remain natural |
+|---|---|---|
+| Ordinary handheld shot of a mostly static scene | Standard two-pass stabilisation | Small shake is reduced without drifting framing |
+| Intentional pan, tilt, walking or a large camera move | Gentle correction; reduce smoothing and avoid trying to lock the composition | The direction, pace and start/stop of the camera move |
+| Scenery through a moving train or aircraft window | Compare a gentle pass with the untreated source; prefer the source if correction follows the scenery | Passing objects and parallax, without sudden pulls, tilts or zoom changes |
+
+Treat these as starting choices, not guaranteed fixes. For window shots,
+use a reliable camera-fixed reference or tracking region only when the tool
+supports it and the shot provides one. Do not assume the passing landscape
+is a stable reference. If the available stabiliser cannot separate scene
+motion from camera shake, bypass it rather than forcing a stronger pass.
+
+Preview the complete selected cut in motion at delivery speed, including
+its beginning and end, against the untreated source. Check for rubbery
+movement, horizon tilting, framing jumps, crop changes, and the camera
+appearing to resist then catch up with a pan. A contact-sheet frame cannot
+validate stabilisation. Reduce correction, choose a calmer unique source
+range, or bypass it if these effects remain. Slow motion is a pacing option,
+not a repair for bad tracking or warping.
+
+For the standard mode, the following is a two-pass vidstab starting point
+at native 4K; adapt the settings after the motion preview:
 
 ```bash
 # pass 1 — analyse, with 2s of padding either side for a smoother path
@@ -105,16 +132,15 @@ on an output frame:
 
 Notes that matter:
 
-- `smoothing=15` (about half a second at 30p). Larger windows are worse on
-  short cuts — a 40+ frame window on a 100-frame cut fights the intentional
-  camera move and makes the result *shakier*. Measured: 15 → 21% less jitter,
-  40 → 7% worse, 80 → far worse.
+- `smoothing=15` is a starting point for the standard mode, not a universal
+  setting. A large smoothing window can fight an intentional camera move;
+  compare a lower setting for gentle mode instead of increasing smoothing
+  to compensate for large scene motion.
 - `optzoom=1` crops just enough to hide the edges. Check one output frame
   against its source to confirm the zoom is modest and there are no black
   borders.
-- Shots through a train or aircraft window are the one case to eyeball after
-  stabilising: the scene moves while the camera is still, so verify vidstab
-  followed the camera rather than the scenery.
+- Inspect every corrected cut in motion. Give passing scenery and large
+  camera moves particular attention using the mode selection above.
 - Pad the analysis window either side of the cut. vidstab needs context to
   build a smooth path, and a 3-second cut on its own gives it almost none.
 
