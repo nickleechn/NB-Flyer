@@ -7,17 +7,21 @@ recorded voice-over to a finished 4K upload with subtitles and metadata.
 
 These are defaults. Do not ask about them each time.
 
-- **Match stabilisation to the shot.** Use the standard stabilisation pass
-  for ordinary handheld shake. For passing scenery, deliberate pans, walking
-  shots or other large movements, start with a gentler motion-preserving
-  treatment and compare it with the original. Bypass correction when it
-  introduces more distracting movement than it removes.
+- **Select calm footage before applying a fix.** Long recordings are normal:
+  the presenter cannot keep stopping to film separate shots while travelling.
+  Treat each take as a source of usable segments, not a continuous sequence
+  that must appear in the edit. Avoid sweeping gimbal moves, repeated turns,
+  walking bob and large camera movements that can make viewing uncomfortable.
+- **Match stabilisation to the selected segment.** Prefer a settled view;
+  then choose standard correction, gentle correction, camera fix, or no
+  correction as appropriate. Do not use stabilisation as a reason to retain
+  an otherwise uncomfortable segment.
 - **Shoot 60 fps, deliver 30 fps.** Source is 59.94p; every export is 30p.
 - **Aim for 4K.** Deliver 3840 × 2160. Never downscale to 1080p unless asked.
-- **Use 50% speed to fill a gap.** If a shot is too shaky to use at speed, or a
-  beat in the script needs more screen time than the clip has, slow it to 50%.
-  60p conformed to 30p is *exactly* 2× slow motion with every source frame
-  used — perfectly smooth, no interpolation, no frame blending.
+- **Use 50% speed for suitable footage.** Slow a calm, usable segment when
+  a beat needs more screen time. Do not slow a sweeping or shaky movement
+  simply to make it usable; select a steadier section instead. Retain the
+  established 60p-source / 30p-delivery workflow.
 - **Let the story breathe.** Use narration beats to organise the edit, but
   do not make the video end at the voice-over's original runtime. Insert
   intentional narration pauses to showcase the footage, with music carrying
@@ -56,6 +60,32 @@ magick montage labelled/*.jpg -tile 4x4 -geometry +3+3 sheet.jpg
 
 For long takes, pull 4 frames instead of 1 — the midpoint frame lies about
 what a 60-second clip contains.
+
+### 1a. Break long recordings into usable segments
+
+Review long takes at multiple points and inspect motion around candidate
+in/out points. Mark separate source ranges for settled compositions or clear
+story details, and exclude the movement connecting them. One recording may
+provide several non-overlapping shots at different places in the edit.
+
+For train or aircraft boarding, extract the useful beats separately: the
+entrance or carriage/aircraft identification, the doorway, a settled cabin
+view, and the seat. Use only the beats actually present. Cut out the long
+walk through the platform, jet bridge or aisle when it contains substantial
+camera movement. Do not keep an uninterrupted boarding walk merely to show
+chronology; distinct shots can communicate the same progression.
+
+Trim camera repositioning, gimbal sweeps, abrupt pans and tilts, walking bob,
+and turns between subjects. Let the camera settle before the chosen in-point
+and cut before the next repositioning. Small connecting movements may remain
+when they are comfortable and useful, but prefer the stable portions. If no
+comfortable segment exists, omit the shot or use another unique view.
+
+Avoid a string of rapid cuts or conflicting movement directions when splitting
+a take. Give each selected view enough time to register. For music-only
+breathing room, choose calm footage rather than extending a moving-camera
+walk. Record each segment's own source in/out points in the EDL and retain
+the existing rule against overlapping or repeated source moments.
 
 ### 2. Transcribe the voice-over with timings
 
@@ -118,8 +148,20 @@ EDL. Do not apply the same correction strength to every shot.
 | Shot | Starting approach | What must remain natural |
 |---|---|---|
 | Ordinary handheld shot of a mostly static scene | Standard two-pass stabilisation | Small shake is reduced without drifting framing |
-| Intentional pan, tilt, walking or a large camera move | Gentle correction; reduce smoothing and avoid trying to lock the composition | The direction, pace and start/stop of the camera move |
+| Gimbal sweep, boarding walk, repeated turn or other large camera move | Exclude the moving passage; extract settled segments before and after it | Clear progression without prolonged camera travel |
+| Small useful residual camera movement in a selected segment | Gentle correction only if the movement remains comfortable | Natural motion without correction snapping or catching up |
+| Nearly stationary camera on a mostly static scene | Consider camera fix / a locked-frame treatment | Stable framing with live subject movement and a modest crop |
 | Scenery through a moving train or aircraft window | Compare a gentle pass with the untreated source; prefer the source if correction follows the scenery | Passing objects and parallax, without sudden pulls, tilts or zoom changes |
+
+**Camera fix means holding the framing steady, not freezing the video.**
+For a short, nearly static segment with enough image area to crop, consider
+an available tripod/locked-frame mode or fixed-reference stabilisation.
+Preview the result before accepting it. Reject excessive crop, warped edges,
+black borders, or sudden framing shifts. Do not try to pin a large pan,
+forward boarding walk or strong parallax to one frame; select a settled
+segment instead. Do not lock to scenery passing outside a moving vehicle.
+If the tool cannot produce a clean camera fix, use a lighter treatment or
+another segment.
 
 Treat these as starting choices, not guaranteed fixes. For window shots,
 use a reliable camera-fixed reference or tracking region only when the tool
@@ -132,7 +174,8 @@ its beginning and end, against the untreated source. Check for rubbery
 movement, horizon tilting, framing jumps, crop changes, and the camera
 appearing to resist then catch up with a pan. A contact-sheet frame cannot
 validate stabilisation. Reduce correction, choose a calmer unique source
-range, or bypass it if these effects remain. Slow motion is a pacing option,
+range, or omit the segment if uncomfortable movement remains. Bypass
+correction only when the untreated selected footage itself is comfortable. Slow motion is a pacing option,
 not a repair for bad tracking or warping.
 
 For the standard mode, the following is a two-pass vidstab starting point
