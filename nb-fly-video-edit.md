@@ -18,8 +18,13 @@ These are defaults. Do not ask about them each time.
   beat in the script needs more screen time than the clip has, slow it to 50%.
   60p conformed to 30p is *exactly* 2× slow motion with every source frame
   used — perfectly smooth, no interpolation, no frame blending.
-- **The voice-over leads the edit.** Cut picture to the VO's sentence
-  boundaries, not the other way round.
+- **Let the story breathe.** Use narration beats to organise the edit, but
+  do not make the video end at the voice-over's original runtime. Insert
+  intentional narration pauses to showcase the footage, with music carrying
+  those moments. Do not fill every second with speech.
+- **Preserve a good cut.** When revising an approved edit, reuse its FCPXML
+  and shot order. Change the requested processing and extend suitable shots
+  for breathing room rather than rebuilding the sequence unnecessarily.
 - **Never repeat a shot.** Two different sections of one long take are fine;
   the same moment twice is not.
 - **Cut the script before reusing footage.** If a chapter runs out of unique
@@ -58,7 +63,29 @@ what a 60-second clip contains.
 whisper-cli -m ggml-small.en.bin -f vo16k.wav -osrt -of vo
 ```
 
-Those timings are the edit's skeleton. Every picture cut lands on a VO beat.
+Those timings are the edit's initial skeleton, not a fixed runtime. Keep a
+map from the original narration to the revised timeline whenever pauses or
+trims change its placement.
+
+### 2a. Leave room for the footage
+
+Add short, deliberate music-only passages at natural transitions: a landscape
+opening up, an arrival, an evening walk, or a quiet view on the return leg.
+Choose the number and length for the footage rather than inserting a pause
+after every sentence. A few seconds can be enough; there is no requirement
+to keep a four-minute voice-over inside a four-minute video.
+
+Split narration only inside a verified gap between complete phrases or
+sentences. Insert silence without stretching the spoken audio or cutting
+off a word. Keep tiny splice fades inside those gaps to avoid clicks. Extend
+suitable moving footage, use an unused source range, or use the established
+50% slow-motion option when appropriate. Do not freeze a frame or repeat a
+source moment just to fill a pause. Recheck source capacity and overlaps.
+
+Record each inserted pause and remap the narration, cuts, subtitles and
+chapters consistently. A subtitle that crosses a pause needs splitting or
+retiming so it does not hang over the music-only passage. Use the revised
+picture runtime when sizing or looping the music.
 
 ### 3. Build an EDL and validate it mechanically
 
@@ -166,10 +193,16 @@ shapes rather than typing `→`.
 
 ### 7. Audio
 
-Keep the music at a steady background level through narration. Do not use
+Keep the voice level even from passage to passage. Use gentle vocal
+compression or phrase-level gain where needed, preserving natural expression
+and quiet gaps; integrated loudness alone does not guarantee consistent
+speech. Avoid audible pumping or boosted breaths.
+
+Keep the music clearly audible at a steady background level through narration. Do not use
 sidechain compression, speech-triggered ducking, or volume dips whenever
 the presenter speaks. Choose the music gain once for the mix, so the voice
-remains clear while the music stays audible and consistent. Check a spoken
+remains clear while the music stays audible and consistent. If the bed is
+hard to hear, raise its fixed level rather than only lifting it during pauses. Check a spoken
 passage and a pause at the same playback volume.
 
 Normalise the voice-over as needed, set the music's fixed gain by listening,
@@ -180,8 +213,10 @@ combined mix and target −16 LUFS integrated with true peak no higher than
 speech-triggered music changes.
 
 Opening and closing fades are fine. Loop a short music bed with `acrossfade`
-between copies rather than butting them together. These transitions should
-follow the edit or track boundaries, not voice activity.
+between copies rather than butting them together. Loop the selected track
+as needed to cover the revised runtime, choosing compatible musical phrases
+and checking the join for clicks or a sudden level change. These transitions
+should follow the edit or track boundaries, not voice activity.
 
 ### 8. Assemble frame-exactly
 
@@ -241,7 +276,9 @@ Target: ≤ 2 lines, ≤ 42 characters per line, ≥ 1s per cue, no overlaps.
 
 Also ship: an `.srt`, an FCPXML matching the delivered cut, and a metadata
 file with title options, description and chapter timestamps taken from the
-edit rather than invented.
+edit rather than invented. For revisions, keep the previous export available
+and identify the new version clearly. Supply separate narration and music
+tracks in the FCPXML so their levels remain adjustable in Final Cut Pro.
 
 ## Tooling
 
